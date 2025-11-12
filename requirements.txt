@@ -1,0 +1,21 @@
+# Python dependencies for FRS Development Platform
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# HTTP requests
+requests>=2.31.0
+
+# YAML processing
+pyyaml>=6.0.1
+
+# JSON schema validation
+jsonschema>=4.19.0
+
+# CLI and output formatting
+rich>=13.5.0
+typer>=0.9.0
+
+# Data modeling
+pydantic>=2.0.0

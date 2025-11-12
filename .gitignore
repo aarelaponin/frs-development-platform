@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Sensitive data
+*.log
+*.sql
+*.zip
+config/secrets/
+backups/*.sql
+backups/*.zip
+
+# Test outputs
+htmlcov/
+.coverage
+.pytest_cache/
+test_report.html
+
+# Temporary files
+*.tmp
+*.bak
