@@ -1,0 +1,118 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frs-platform"
+version = "0.1.0"
+description = "FRS Development Platform - Command Control Center for Joget DX Development"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Aare Laponin", email = "aarelaponin@example.com"}
+]
+keywords = ["joget", "automation", "devops", "workflow", "frs"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "typer[all]>=0.9.0",
+    "rich>=13.5.0",
+    "requests>=2.31.0",
+    "pyyaml>=6.0.1",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "jsonschema>=4.19.0",
+    "python-dotenv>=1.0.0",
+    "jinja2>=3.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.11.0",
+    "black>=23.7.0",
+    "ruff>=0.0.287",
+    "mypy>=1.5.0",
+    "types-requests",
+    "types-pyyaml",
+]
+
+[project.scripts]
+frs-dev = "frs_platform.cli.main:app"
+
+[project.urls]
+Homepage = "https://github.com/aarelaponin/frs-development-platform"
+Documentation = "https://github.com/aarelaponin/frs-development-platform/blob/main/README.md"
+Repository = "https://github.com/aarelaponin/frs-development-platform"
+Issues = "https://github.com/aarelaponin/frs-development-platform/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+frs_platform = ["py.typed", "**/*.j2", "**/*.yaml", "**/*.json"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --cov=frs_platform --cov-report=term-missing --cov-report=html"
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "C",   # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
